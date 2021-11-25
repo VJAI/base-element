@@ -1,0 +1,16 @@
+{
+  "name": "base-element",
+  "version": "0.0.1",
+  "description": "Example describing how to simplify web components development using decorators and base class",
+  "scripts": {
+    "start": "webpack-dev-server --config webpack.config.js",
+    "build": "tsc --build tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "^4.4.3",
+    "ts-loader": "^9.2.6",
+    "webpack": "^5.54.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.3.0"
+  }
+}
