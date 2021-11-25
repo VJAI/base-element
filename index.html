@@ -3,19 +3,48 @@
   <title>Simplifying Creating Web Components Using TypeScript Decorators</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Pacifico&display=swap" rel="stylesheet">
   <style>
-    my-smiley span.medium {
-      font-size: 2rem;
+    body {
+        margin: 0 auto;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: #f9f9f9;
+        font-family: 'Comfortaa', cursive;
     }
 
-    my-smiley span.large {
-        font-size: 4rem;
+    h1 {
+        font-family: 'Pacifico', cursive;
+    }
+
+    pre {
+        font-family: 'courier';
+        color: gray;
+        margin: 2rem 0;
+    }
+
+    footer {
+        color: gray;
+        font-size: 0.6rem;
     }
   </style>
 </head>
 <body>
-<h1>Simplifying Creating Web Components Using TypeScript Decorators</h1>
+<h1>My life of emotions</h1>
+<main>
+  <div class="app-container"></div>
+<pre>
+&lt;my-smiley type="happy"&gt;&lt;/my-smiley&gt;
+</pre>
+    <footer>
+      Demo of building UI components using native browser technologies leveraging typescript decorators.<br> Please look into <a target="_blank" href="https://github.com/vjai/tiny">tiny</a> library for real-world development of UI components.
+    </footer>
+</main>
 <script src="app.js"></script>
 </body>
 </html>

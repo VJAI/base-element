@@ -23,16 +23,34 @@ export interface KeyValue {
  */
 export abstract class BaseElement extends HTMLElement {
 
+  /**
+   * The component metadata.
+   */
   private readonly _metadata: ElementMetadata = null;
 
+  /**
+   * True when the component is initialized (applied the decorators and refreshed with the initial inputs state).
+   */
   private _initialized: boolean = false;
 
+  /**
+   * True when the component is rendered.
+   */
   private _rendered: boolean = false;
 
+  /**
+   * Changes of inputs.
+   */
   private _changes = new Map<string, { oldValue: any; newValue: any }>();
 
+  /**
+   * The current state of properties.
+   */
   private _props = new Map<string, any>();
 
+  /**
+   * Timer to refresh the UI from the changes map.
+   */
   private _updateTimer: any = null;
 
   protected constructor() {
@@ -40,6 +58,10 @@ export abstract class BaseElement extends HTMLElement {
     this._metadata = this.constructor[ELEMENT_META_KEY];
   }
 
+  /**
+   * Overrides the getter of the properties decorated with `query` decorator to return the dom elements
+   * on accessing the properties.
+   */
   private _applyAccessors() {
     [...this._metadata.accessors].forEach(
       ([prop, { selector }]) => {
@@ -52,10 +74,18 @@ export abstract class BaseElement extends HTMLElement {
     );
   }
 
+  /**
+   * Overrides the getter and setter of the properties decorated with `input` decorator.
+   * The getter is overridden to return the current state from the `_props` property and the setter is
+   * overridden to track the change and push to the `changes` map eventually triggering the update timer to
+   * refresh the UI in the next tick.
+   */
   private _applyInputs() {
     [...this._metadata.inputs].forEach(({ property, attribute, dataType }) => {
       let value;
 
+      // If attribute is passed as `true` then read the initial value of the property from
+      // DOM attribute parse it based on the data type and store it in the `_props`.
       if (attribute) {
         let attrValue: any = this.getAttr(property);
 
@@ -107,6 +137,11 @@ export abstract class BaseElement extends HTMLElement {
     });
   }
 
+  /**
+   * Checks if there is really a change if yes then push it to the `_changes` map.
+   * @param prop
+   * @param value
+   */
   private _pushChange(prop: string, value: any) {
     if (!this._changes.has(prop)) {
       this._changes.set(prop, { oldValue: this[prop], newValue: value });
@@ -122,6 +157,9 @@ export abstract class BaseElement extends HTMLElement {
     this._changes.set(prop, { oldValue, newValue: value });
   }
 
+  /**
+   * Kick the UI update timer.
+   */
   private _triggerUpdate() {
     if (this._updateTimer) {
       return;
