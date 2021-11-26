@@ -22,7 +22,7 @@ enum smileyMap {
 class SmileyElement extends BaseElement {
 
   @input(true)
-  type: 'happy' | 'sad' = 'happy';
+  type: string = 'happy';
 
   @input(true)
   size: 'small' | 'medium' | 'large' = 'medium';
